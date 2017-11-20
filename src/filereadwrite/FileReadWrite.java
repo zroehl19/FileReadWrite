@@ -5,8 +5,9 @@
  */
 package filereadwrite;
 
-import java.io.BufferedReader;
-import java.util.ArrayList;
+import java.io.*;
+import java.util.*;
+import java.nio.file.Files;
 
 /**
  *
@@ -19,15 +20,36 @@ public class FileReadWrite {
      */
     public static void main(String[] args) {
         
+        String name = "";
         ArrayList<String> names = new ArrayList<>();
         
-        try(BufferedReader in = new BufferedReader(BoyNames.txt))
+        
+        
+        try(BufferedReader input = new BufferedReader(new FileReader(new File("BoyNames.txt"))))
         {
-            
+            for(int i = 0; i < 200; i++)
+            {
+                name = input.readLine();
+                names.add(name);
+            }
         }
-        catch(exception e)
+        catch(IOException e)
         {
-            
+        }
+        
+        Collections.sort(names);
+        
+       
+        
+        try(PrintWriter writer = new PrintWriter(new BufferedWriter(new FileWriter("alphBetNames.txt", true))))
+        {
+            for(String nam:names)
+            {
+                writer.println(nam);
+            }
+        }
+        catch(IOException e)
+        {
         }
     }
     
